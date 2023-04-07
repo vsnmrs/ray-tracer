@@ -2,13 +2,16 @@
 
 int main()
 {
-	constexpr int image_width = 256;
-	constexpr int image_height = 256;
+	constexpr int image_width = 512;
+	constexpr int image_height = 512;
 
 	std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	for (int height = image_height - 1; height >= 0; --height)
 	{
+		//we use std::cout to save the output to a file, so we use the error output stream for anything that shouldn't be in the imgage
+		std::cerr << "\rScan lines remaining: " << height << ' ' << std::flush;
+
 		for (int width = 0; width < image_width; ++width)
 		{
 			auto r = (double)width / (image_width - 1);
@@ -22,4 +25,6 @@ int main()
 			std::cout << ir << ' ' << ig << ' ' << ib << '\n';
 		}
 	}
+
+	std::cerr << "\nDone\n";
 }
